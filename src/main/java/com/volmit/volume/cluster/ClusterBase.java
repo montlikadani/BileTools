@@ -1,31 +1,27 @@
 package com.volmit.volume.cluster;
 
-public class ClusterBase<T> implements ICluster<T>
-{
+public class ClusterBase<T> implements ICluster<T> {
+
 	private T t;
 	private Class<? extends T> type;
 
-	public ClusterBase(Class<? extends T> type, T t)
-	{
+	public ClusterBase(Class<? extends T> type, T t) {
 		this.t = t;
 		this.type = type;
 	}
 
 	@Override
-	public Class<? extends T> getType()
-	{
+	public Class<? extends T> getType() {
 		return type;
 	}
 
 	@Override
-	public void set(T t)
-	{
+	public void set(T t) {
 		this.t = t;
 	}
 
 	@Override
-	public T get()
-	{
+	public T get() {
 		return t;
 	}
 }

@@ -7,36 +7,24 @@ import com.volmit.volume.cluster.DataCluster;
 import com.volmit.volume.cluster.IClusterPort;
 import com.volmit.volume.lang.format.F;
 
-public class YAMLClusterPort implements IClusterPort<FileConfiguration>
-{
-	public static String applyComments(DataCluster cc, String yml)
-	{
+public class YAMLClusterPort implements IClusterPort<FileConfiguration> {
+
+	public static String applyComments(DataCluster cc, String yml) {
 		boolean f = false;
 		String src = "";
 
-		for(String i : yml.split("\n"))
-		{
-			if(i.contains(":"))
-			{
+		for (String i : yml.split("\n")) {
+			if (i.contains(":")) {
 				String key = i.trim().split("\\Q: \\E")[0];
 				String spc = F.repeat(" ", i.length() - i.trim().length());
 
-				search: for(String j : cc.k())
-				{
-					if(!cc.hasComment(j))
-					{
-						continue;
-					}
-
-					if(j.split("\\.")[j.split("\\.").length - 1].equals(key))
-					{
-						if(f)
-						{
+				search: for (String j : cc.k()) {
+					if (cc.hasComment(j) && j.split("\\.")[j.split("\\.").length - 1].equals(key)) {
+						if (f) {
 							src += "\n";
 						}
 
-						for(String k : F.wrap(cc.getComment(j), 64).split("\n"))
-						{
+						for (String k : F.wrap(cc.getComment(j), 64).split("\n")) {
 							src += spc + "# " + k + "\n";
 							break search;
 						}
@@ -52,30 +40,23 @@ public class YAMLClusterPort implements IClusterPort<FileConfiguration>
 	}
 
 	@Override
-	public DataCluster toCluster(FileConfiguration t) throws Exception
-	{
+	public DataCluster toCluster(FileConfiguration t) throws Exception {
 		DataCluster cc = new DataCluster();
 
-		for(String i : t.getKeys(true))
-		{
-			if(t.isConfigurationSection(i))
-			{
-				continue;
+		for (String i : t.getKeys(true)) {
+			if (!t.isConfigurationSection(i)) {
+				cc.set(i, t.get(i));
 			}
-
-			cc.set(i, t.get(i));
 		}
 
 		return cc;
 	}
 
 	@Override
-	public FileConfiguration fromCluster(DataCluster c) throws Exception
-	{
+	public FileConfiguration fromCluster(DataCluster c) throws Exception {
 		FileConfiguration fc = new YamlConfiguration();
 
-		for(String i : c.k())
-		{
+		for (String i : c.k()) {
 			fc.set(i, c.get(i));
 		}
 

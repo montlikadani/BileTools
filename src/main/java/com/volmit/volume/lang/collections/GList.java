@@ -13,67 +13,56 @@ import java.util.Set;
  * GLists are Arraylists with special enhancements
  *
  * @author cyberpwn
- * @param <T>
- *            the type of list T
+ * @param <T> the type of list T
  */
-public class GList<T> extends ArrayList<T>
-{
+public class GList<T> extends ArrayList<T> {
+
 	private static final long serialVersionUID = 4480457702775755227L;
 
 	/**
 	 * Create an empty GList
 	 */
-	public GList()
-	{
+	public GList() {
 		super();
 	}
 
-	public GList<T> grepExplicit(int startIndex, int endIndex)
-	{
-		GList<T> f = new GList<T>();
+	public GList<T> grepExplicit(int startIndex, int endIndex) {
+		GList<T> f = new GList<>();
 
-		for(int i = startIndex; i < endIndex + 1; i++)
-		{
+		for (int i = startIndex; i < endIndex + 1; i++) {
 			f.add(getAt(i));
 		}
 
 		return f;
 	}
 
-	public GList<T> grepDistance(int startIndex, int size)
-	{
-		GList<T> f = new GList<T>();
+	public GList<T> grepDistance(int startIndex, int size) {
+		GList<T> f = new GList<>();
 
-		for(int i = 0; i < size; i++)
-		{
+		for (int i = 0; i < size; i++) {
 			f.add(getAt(i + startIndex));
 		}
 
 		return f;
 	}
 
-	public T getAt(int index)
-	{
+	public T getAt(int index) {
 		return get((int) index);
 	}
 
-	public T getAt(Integer index)
-	{
+	public T getAt(Integer index) {
 		return get(index.intValue());
 	}
 
 	/**
 	 * Create a new GList from a Set of the same type
 	 *
-	 * @param set
-	 *            the given set
+	 * @param set the given set
 	 */
-	public GList(Set<T> set)
-	{
+	public GList(Set<T> set) {
 		super();
 
-		for(T i : set)
-		{
+		for (T i : set) {
 			add(i);
 		}
 	}
@@ -81,15 +70,12 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Create a new GList from a Collection of the same type
 	 *
-	 * @param set
-	 *            the given collection
+	 * @param set the given collection
 	 */
-	public GList(Collection<T> set)
-	{
+	public GList(Collection<T> set) {
 		super();
 
-		for(T i : set)
-		{
+		for (T i : set) {
 			add(i);
 		}
 	}
@@ -97,15 +83,12 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Create a glist by iterating through an iterator
 	 *
-	 * @param it
-	 *            the iterator
+	 * @param it the iterator
 	 */
-	public GList(Iterator<T> it)
-	{
+	public GList(Iterator<T> it) {
 		super();
 
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			add(it.next());
 		}
 	}
@@ -113,11 +96,9 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Create a GList with an array of the same type
 	 *
-	 * @param array
-	 *            the array to start off this list
+	 * @param array the array to start off this list
 	 */
-	public GList(T[] array)
-	{
+	public GList(T[] array) {
 		super();
 		add(array);
 	}
@@ -125,20 +106,15 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Create a GList with an existing list of the same type
 	 *
-	 * @param array
-	 *            a list of the same type (essentially a clone) but from any type
-	 *            implementing List<T>
+	 * @param array a list of the same type (essentially a clone) but from any type
+	 *              implementing List<T>
 	 */
-	public GList(List<T> array)
-	{
+	public GList(List<T> array) {
 		super();
 
-		if(array == null)
-		{
-			return;
+		if (array != null) {
+			add(array);
 		}
-
-		add(array);
 	}
 
 	/**
@@ -146,17 +122,14 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the most common element
 	 */
-	public T mostCommon()
-	{
-		GMap<T, Integer> common = new GMap<T, Integer>();
+	public T mostCommon() {
+		GMap<T, Integer> common = new GMap<>();
 		Iterator<T> it = iterator();
 
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			T i = it.next();
 
-			if(!common.containsKey(i))
-			{
+			if (!common.containsKey(i)) {
 				common.put(i, 0);
 			}
 
@@ -166,10 +139,8 @@ public class GList<T> extends ArrayList<T>
 		int sm = 0;
 		T v = null;
 
-		for(T i : common.keySet())
-		{
-			if(common.get(i) > sm)
-			{
+		for (T i : common.keySet()) {
+			if (common.get(i) > sm) {
 				sm = common.get(i);
 				v = i;
 			}
@@ -183,8 +154,7 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return a Glist of the same type as this, shuffled.
 	 */
-	public GList<T> shuffleCopy()
-	{
+	public GList<T> shuffleCopy() {
 		GList<T> o = copy();
 		Collections.shuffle(o);
 		return o;
@@ -193,31 +163,25 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Shuffle this list. (randomize)
 	 */
-	public void shuffle()
-	{
+	public void shuffle() {
 		Collections.shuffle(this);
 	}
 
 	/**
 	 * Split this list into multiple lists
 	 *
-	 * @param v
-	 *            the divisor (how many lists will be returned)
+	 * @param v the divisor (how many lists will be returned)
 	 * @return the list of lists
 	 */
-	public GList<GList<T>> split(int v)
-	{
-		GList<GList<T>> mtt = new GList<GList<T>>();
+	public GList<GList<T>> split(int v) {
+		GList<GList<T>> mtt = new GList<>();
 		int d = size() / v < 1 ? 1 : size() / v;
 
-		for(int i = 0; i < v; i++)
-		{
-			GList<T> l = new GList<T>();
+		for (int i = 0; i < v; i++) {
+			GList<T> l = new GList<>();
 
-			for(int j = 0; j < d; j++)
-			{
-				if(!isEmpty())
-				{
+			for (int j = 0; j < d; j++) {
+				if (!isEmpty()) {
 					l.add(pop());
 				}
 			}
@@ -234,20 +198,17 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return a split set of lists
 	 */
-	public GList<GList<T>> split()
-	{
+	public GList<GList<T>> split() {
 		return split(2);
 	}
 
 	/**
 	 * Does this list contain the given index?
 	 *
-	 * @param i
-	 *            the given index
+	 * @param i the given index
 	 * @return true if the list has the given index
 	 */
-	public boolean hasIndex(int i)
-	{
+	public boolean hasIndex(int i) {
 		return i < size();
 	}
 
@@ -256,8 +217,7 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the randomly picked element
 	 */
-	public T pickRandom()
-	{
+	public T pickRandom() {
 		Random random = new Random();
 		return get(random.nextInt(size()));
 	}
@@ -268,12 +228,10 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the String list
 	 */
-	public GList<String> stringList()
-	{
-		GList<String> s = new GList<String>();
+	public GList<String> stringList() {
+		GList<String> s = new GList<>();
 
-		for(T i : this)
-		{
+		for (T i : this) {
 			s.add(i.toString());
 		}
 
@@ -283,13 +241,10 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Do something for each
 	 *
-	 * @param callback
-	 *            the something to do things for something
+	 * @param callback the something to do things for something
 	 */
-	public void forEach(Callback<T> callback)
-	{
-		for(T i : this)
-		{
+	public void forEach(Callback<T> callback) {
+		for (T i : this) {
 			callback.run(i);
 		}
 	}
@@ -299,8 +254,7 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the last index
 	 */
-	public int last()
-	{
+	public int last() {
 		return size() - 1;
 	}
 
@@ -308,19 +262,12 @@ public class GList<T> extends ArrayList<T>
 	 * Get the index at the given index (same) OR if that index does not exist, get
 	 * the LAST index of this list
 	 *
-	 * @param index
-	 *            the index
+	 * @param index the index
 	 * @return the same index, or the last index of the list if the given inxex does
 	 *         not exist
 	 */
-	public int getIndexOrLast(int index)
-	{
-		if(hasIndex(index))
-		{
-			return index;
-		}
-
-		return last();
+	public int getIndexOrLast(int index) {
+		return hasIndex(index) ? index : last();
 	}
 
 	/**
@@ -330,12 +277,10 @@ public class GList<T> extends ArrayList<T>
 	 * Example List a, b, c, d <br/>
 	 * cropFrom(1) > c, d
 	 *
-	 * @param from
-	 *            the from index to be the new beginning of the next index
+	 * @param from the from index to be the new beginning of the next index
 	 * @return the cropped glist
 	 */
-	public GList<T> cropFrom(int from)
-	{
+	public GList<T> cropFrom(int from) {
 		return crop(from, size() - 1);
 	}
 
@@ -346,12 +291,10 @@ public class GList<T> extends ArrayList<T>
 	 * Example List a, b, c, d <br/>
 	 * cropFrom(1) > a, b
 	 *
-	 * @param from
-	 *            the from index to be the new beginning of the next index
+	 * @param from the from index to be the new beginning of the next index
 	 * @return the cropped glist
 	 */
-	public GList<T> cropTo(int to)
-	{
+	public GList<T> cropTo(int to) {
 		return crop(0, to);
 	}
 
@@ -361,20 +304,15 @@ public class GList<T> extends ArrayList<T>
 	 * Example List a, b, c, d <br/>
 	 * cropFrom(1, 2) > b, c
 	 *
-	 * @param from
-	 *            the from index
-	 * @param to
-	 *            the to index
+	 * @param from the from index
+	 * @param to   the to index
 	 * @return the cropped glist
 	 */
-	public GList<T> crop(int from, int to)
-	{
-		GList<T> crop = new GList<T>();
+	public GList<T> crop(int from, int to) {
+		GList<T> crop = new GList<>();
 
-		if(!isEmpty() && from >= 0 && hasIndex(from) && hasIndex(to) && from <= to)
-		{
-			for(int i = from; i <= to; i++)
-			{
+		if (!isEmpty() && from >= 0 && hasIndex(from) && hasIndex(to) && from <= to) {
+			for (int i = from; i <= to; i++) {
 				crop.add(get(i));
 			}
 		}
@@ -388,9 +326,8 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the new list
 	 */
-	public GList<T> removeDuplicates()
-	{
-		Set<T> set = new LinkedHashSet<T>(this);
+	public GList<T> removeDuplicates() {
+		Set<T> set = new LinkedHashSet<>(this);
 		clear();
 		addAll(set);
 
@@ -400,19 +337,15 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Remove all of the given object in the list.
 	 *
-	 * @param t
-	 *            the given object
+	 * @param t the given object
 	 */
-	public void removeAll(T t)
-	{
-		while(contains(t))
-		{
+	public void removeAll(T t) {
+		while (contains(t)) {
 			remove(t);
 		}
 	}
 
-	public GSet<T> toSet()
-	{
+	public GSet<T> toSet() {
 		return new GSet<T>(this);
 	}
 
@@ -421,21 +354,18 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return true if there is at least one duplicate element
 	 */
-	public boolean hasDuplicates()
-	{
+	public boolean hasDuplicates() {
 		return size() != new LinkedHashSet<T>(this).size();
 	}
 
 	/**
 	 * Sort the list by comparing them via toStrings
 	 */
-	public void sort()
-	{
+	public void sort() {
 		sort(null);
 	}
 
-	public GList<T> sortCopy()
-	{
+	public GList<T> sortCopy() {
 		GList<T> m = copy();
 		m.sort(null);
 		return m;
@@ -445,17 +375,13 @@ public class GList<T> extends ArrayList<T>
 	 * Add a new element to the list, and remove the first element if the limit is
 	 * reached (size)
 	 *
-	 * @param value
-	 *            the new element
-	 * @param limit
-	 *            the limit of this list's size
+	 * @param value the new element
+	 * @param limit the limit of this list's size
 	 */
-	public void push(T value, int limit)
-	{
+	public void push(T value, int limit) {
 		add(value);
 
-		while(size() > limit && !isEmpty())
-		{
+		while (size() > limit && !isEmpty()) {
 			remove(0);
 		}
 	}
@@ -463,14 +389,11 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Add an array of items of the same type, or all of them (...)
 	 *
-	 * @param array
-	 *            the array
+	 * @param array the array
 	 */
 	@SuppressWarnings("unchecked")
-	public void add(T... array)
-	{
-		for(T i : array)
-		{
+	public void add(T... array) {
+		for (T i : array) {
 			add(i);
 		}
 	}
@@ -478,18 +401,15 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Add an element to the list and return it, great for chaining
 	 *
-	 * @param t
-	 *            the element to add to the end
+	 * @param t the element to add to the end
 	 * @return this list (for chaining)
 	 */
-	public GList<T> qadd(T t)
-	{
+	public GList<T> qadd(T t) {
 		this.add(t);
 		return this;
 	}
 
-	public GList<T> qadd(T[] t)
-	{
+	public GList<T> qadd(T[] t) {
 		this.add(t);
 		return this;
 	}
@@ -497,13 +417,10 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Add a list of elements to the list (same type)
 	 *
-	 * @param array
-	 *            the list
+	 * @param array the list
 	 */
-	public void add(List<T> array)
-	{
-		for(T i : array)
-		{
+	public void add(List<T> array) {
+		for (T i : array) {
 			add(i);
 		}
 	}
@@ -512,21 +429,16 @@ public class GList<T> extends ArrayList<T>
 	 * Get a string of this list with a split string added between the elements. For
 	 * example if you pass in ", " it would return a comma+space separated list.
 	 *
-	 * @param split
-	 *            the split string
+	 * @param split the split string
 	 * @return a string
 	 */
-	public String toString(String split)
-	{
-		if(isEmpty())
-		{
+	public String toString(String split) {
+		if (isEmpty()) {
 			return "";
 		}
 
-		if(size() == 1)
-		{
-			if(get(0) != null)
-			{
+		if (size() == 1) {
+			if (get(0) != null) {
 				return get(0).toString();
 			}
 
@@ -535,18 +447,15 @@ public class GList<T> extends ArrayList<T>
 
 		String s = "";
 
-		if(split == null)
-		{
+		if (split == null) {
 			split = "";
 		}
 
-		for(Object i : this)
-		{
-			s = s + split + i.toString();
+		for (Object i : this) {
+			s += split + i.toString();
 		}
 
-		if(s.length() == 0)
-		{
+		if (s.length() == 0) {
 			return "";
 		}
 
@@ -558,8 +467,7 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the reversed list (copied)
 	 */
-	public GList<T> reverse()
-	{
+	public GList<T> reverse() {
 		Collections.reverse(this);
 		return this;
 	}
@@ -568,14 +476,12 @@ public class GList<T> extends ArrayList<T>
 	 * Comma, space, separated, list, representation
 	 */
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return toString(", ");
 	}
 
 	@Override
-	public GList<T> clone()
-	{
+	public GList<T> clone() {
 		return copy();
 	}
 
@@ -584,12 +490,10 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return cloned list
 	 */
-	public GList<T> copy()
-	{
+	public GList<T> copy() {
 		GList<T> c = new GList<T>();
 
-		for(T i : this)
-		{
+		for (T i : this) {
 			c.add(i);
 		}
 
@@ -599,12 +503,10 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Delete chain an item
 	 *
-	 * @param t
-	 *            the element
+	 * @param t the element
 	 * @return the new list
 	 */
-	public GList<T> qdel(T t)
-	{
+	public GList<T> qdel(T t) {
 		remove(t);
 		return this;
 	}
@@ -614,10 +516,8 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the popped element
 	 */
-	public T pop()
-	{
-		if(isEmpty())
-		{
+	public T pop() {
+		if (isEmpty()) {
 			return null;
 		}
 
@@ -629,22 +529,18 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Pop and run the first element off the list
 	 *
-	 * @param c
-	 *            the callback to run
+	 * @param c the callback to run
 	 */
-	public void run(Callback<T> c)
-	{
+	public void run(Callback<T> c) {
 		c.run(pop());
 	}
 
 	/**
 	 * Pop and run the last element off the list
 	 *
-	 * @param c
-	 *            the callback to run
+	 * @param c the callback to run
 	 */
-	public void runLast(Callback<T> c)
-	{
+	public void runLast(Callback<T> c) {
 		c.run(popLast());
 	}
 
@@ -653,12 +549,10 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the string list
 	 */
-	public GList<String> toStringList()
-	{
-		GList<String> s = new GList<String>();
+	public GList<String> toStringList() {
+		GList<String> s = new GList<>();
 
-		for(T i : this)
-		{
+		for (T i : this) {
 			s.add(i.toString());
 		}
 
@@ -669,13 +563,10 @@ public class GList<T> extends ArrayList<T>
 	 * Pop and run everything off the list. The list will be empty after everything
 	 * has been run
 	 *
-	 * @param c
-	 *            the callback to run
+	 * @param c the callback to run
 	 */
-	public void runAll(Callback<T> c)
-	{
-		while(!isEmpty())
-		{
+	public void runAll(Callback<T> c) {
+		while (!isEmpty()) {
 			run(c);
 		}
 	}
@@ -683,8 +574,7 @@ public class GList<T> extends ArrayList<T>
 	/**
 	 * Remove the last element
 	 */
-	public void removeLast()
-	{
+	public void removeLast() {
 		remove(last());
 	}
 
@@ -693,10 +583,8 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the popped element
 	 */
-	public T popLast()
-	{
-		if(isEmpty())
-		{
+	public T popLast() {
+		if (isEmpty()) {
 			return null;
 		}
 
@@ -710,12 +598,10 @@ public class GList<T> extends ArrayList<T>
 	 *
 	 * @return the random element
 	 */
-	public T popRandom()
-	{
+	public T popRandom() {
 		GList<T> tx = shuffleCopy();
 
-		if(tx.isEmpty())
-		{
+		if (tx.isEmpty()) {
 			return null;
 		}
 

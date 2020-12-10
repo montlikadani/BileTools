@@ -5,71 +5,71 @@ import java.util.List;
 import com.volmit.volume.lang.collections.GList;
 import com.volmit.volume.lang.collections.GMap;
 
-public interface IDataCluster
-{
-	public ICluster<?> getCluster(String key);
+public interface IDataCluster {
 
-	public GList<String> k();
+	ICluster<?> getCluster(String key);
 
-	public GMap<String, ICluster<?>> map();
+	GList<String> k();
 
-	public GMap<String, String> getComments();
+	GMap<String, ICluster<?>> map();
 
-	public void remove(String key);
+	GMap<String, String> getComments();
 
-	public void removeComment(String key);
+	void remove(String key);
 
-	public void removeComments();
+	void removeComment(String key);
 
-	public boolean hasComment(String key);
+	void removeComments();
 
-	public String getComment(String key);
+	boolean hasComment(String key);
 
-	public void setComment(String key, String comment);
+	String getComment(String key);
 
-	public DataCluster crop(String key);
+	void setComment(String key, String comment);
 
-	public DataCluster copy();
+	DataCluster crop(String key);
 
-	public boolean has(String key);
+	DataCluster copy();
 
-	public boolean has(String key, Class<?> c);
+	boolean has(String key);
 
-	public <T> T get(String key);
+	boolean has(String key, Class<?> c);
 
-	public void set(String key, Object o);
+	<T> T get(String key);
 
-	public String getString(String key);
+	void set(String key, Object o);
 
-	public Boolean getBoolean(String key);
+	String getString(String key);
 
-	public Integer getInt(String key);
+	Boolean getBoolean(String key);
 
-	public Long getLong(String key);
+	Integer getInt(String key);
 
-	public Float getFloat(String key);
+	Long getLong(String key);
 
-	public Double getDouble(String key);
+	Float getFloat(String key);
 
-	public Short getShort(String key);
+	Double getDouble(String key);
 
-	public GList<String> getStringList(String key);
+	Short getShort(String key);
 
-	public void set(String key, String o);
+	GList<String> getStringList(String key);
 
-	public void set(String key, boolean o);
+	void set(String key, String o);
 
-	public void set(String key, int o);
+	void set(String key, boolean o);
 
-	public void set(String key, long o);
+	void set(String key, int o);
 
-	public void set(String key, float o);
+	void set(String key, long o);
 
-	public void set(String key, double o);
+	void set(String key, float o);
 
-	public void set(String key, short o);
+	void set(String key, double o);
 
-	public void set(String key, GList<String> o);
+	void set(String key, short o);
 
-	public void set(String key, List<String> o);
+	void set(String key, GList<String> o);
+
+	void set(String key, List<String> o);
 }

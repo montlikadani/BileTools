@@ -1,24 +1,20 @@
 package com.volmit.volume.lang.collections;
 
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GMap<K, V> extends ConcurrentHashMap<K, V>
-{
+public class GMap<K, V> extends ConcurrentHashMap<K, V> {
+
 	private static final long serialVersionUID = 1527847670799761130L;
 
-	public GMap()
-	{
+	public GMap() {
 		super();
 	}
 
-	public GMap(Map<K, V> map)
-	{
+	public GMap(Map<K, V> map) {
 		super();
 
-		for(K i : map.keySet())
-		{
+		for (K i : map.keySet()) {
 			put(i, map.get(i));
 		}
 	}
@@ -28,12 +24,10 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return the copied map
 	 */
-	public GMap<K, V> copy()
-	{
-		GMap<K, V> m = new GMap<K, V>();
+	public GMap<K, V> copy() {
+		GMap<K, V> m = new GMap<>();
 
-		for(K k : this.keySet())
-		{
+		for (K k : this.keySet()) {
 			m.put(k, get(k));
 		}
 
@@ -43,14 +37,11 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	/**
 	 * Chain put
 	 *
-	 * @param k
-	 *            the key
-	 * @param v
-	 *            the value
+	 * @param k the key
+	 * @param v the value
 	 * @return the modified map
 	 */
-	public GMap<K, V> qput(K k, V v)
-	{
+	public GMap<K, V> qput(K k, V v) {
 		put(k, v);
 		return this.copy();
 	}
@@ -60,20 +51,16 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return GMap V, K instead of K, V
 	 */
-	public GMap<V, GList<K>> flip()
-	{
-		GMap<V, GList<K>> flipped = new GMap<V, GList<K>>();
+	public GMap<V, GList<K>> flip() {
+		GMap<V, GList<K>> flipped = new GMap<>();
 
-		for(K i : keySet())
-		{
-			if(i == null)
-			{
+		for (K i : keySet()) {
+			if (i == null) {
 				continue;
 			}
 
-			if(!flipped.containsKey(get(i)))
-			{
-				flipped.put(get(i), new GList<K>());
+			if (!flipped.containsKey(get(i))) {
+				flipped.put(get(i), new GList<>());
 			}
 
 			flipped.get(get(i)).add(i);
@@ -83,12 +70,10 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	}
 
 	@Override
-	public String toString()
-	{
-		GList<String> s = new GList<String>();
+	public String toString() {
+		GList<String> s = new GList<>();
 
-		for(K i : keySet())
-		{
+		for (K i : keySet()) {
 			s.add(i.toString() + ": " + get(i).toString());
 		}
 
@@ -98,14 +83,11 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	/**
 	 * Add maps contents into the current map
 	 *
-	 * @param umap
-	 *            the map to add in
+	 * @param umap the map to add in
 	 * @return the modified current map
 	 */
-	public GMap<K, V> append(GMap<K, V> umap)
-	{
-		for(K i : umap.keySet())
-		{
+	public GMap<K, V> append(GMap<K, V> umap) {
+		for (K i : umap.keySet()) {
 			put(i, umap.get(i));
 		}
 
@@ -117,8 +99,7 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return keys
 	 */
-	public GList<K> k()
-	{
+	public GList<K> k() {
 		return new GList<K>(keySet());
 	}
 
@@ -127,8 +108,7 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return keys
 	 */
-	public GSet<K> kset()
-	{
+	public GSet<K> kset() {
 		return new GSet<K>(keySet());
 	}
 
@@ -137,8 +117,7 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return values
 	 */
-	public GList<V> v()
-	{
+	public GList<V> v() {
 		return new GList<V>(values());
 	}
 
@@ -147,23 +126,18 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return values
 	 */
-	public GSet<V> vset()
-	{
+	public GSet<V> vset() {
 		return new GSet<V>(values());
 	}
 
 	/**
 	 * Put if and only if the key does not yet exist
 	 *
-	 * @param k
-	 *            the key
-	 * @param v
-	 *            the value
+	 * @param k the key
+	 * @param v the value
 	 */
-	public void putNVD(K k, V v)
-	{
-		if(!containsValue(v))
-		{
+	public void putNVD(K k, V v) {
+		if (!containsValue(v)) {
 			put(k, v);
 		}
 	}
@@ -172,26 +146,21 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 * Override. Works just like containsKey(Object o)
 	 */
 	@Override
-	public boolean contains(Object o)
-	{
+	public boolean contains(Object o) {
 		return containsKey(o);
 	}
 
 	/**
 	 * Get a Glist of values from a list of keys
 	 *
-	 * @param keys
-	 *            the requested keys
+	 * @param keys the requested keys
 	 * @return the resulted values
 	 */
-	public GList<V> get(GList<K> keys)
-	{
-		GList<V> ulv = new GList<V>();
+	public GList<V> get(GList<K> keys) {
+		GList<V> ulv = new GList<>();
 
-		for(K i : keys)
-		{
-			if(get(i) != null)
-			{
+		for (K i : keys) {
+			if (get(i) != null) {
 				ulv.add(get(i));
 			}
 		}
@@ -205,15 +174,13 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return the modified map
 	 */
-	public GMap<K, V> removeDuplicateValues()
-	{
+	public GMap<K, V> removeDuplicateValues() {
 		GMap<K, V> map = this.copy();
 		GList<K> keys = map.k().removeDuplicates();
 
 		clear();
 
-		for(K i : keys)
-		{
+		for (K i : keys) {
 			put(i, map.get(i));
 		}
 
@@ -224,20 +191,15 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 * Put a bunch of keys and values does nothing if the lists sizes dont match.
 	 * The order of the list is how assignment will be determined
 	 *
-	 * @param k
-	 *            the keys
-	 * @param v
-	 *            the values
+	 * @param k the keys
+	 * @param v the values
 	 */
-	public void put(GList<K> k, GList<V> v)
-	{
-		if(k.size() != v.size())
-		{
+	public void put(GList<K> k, GList<V> v) {
+		if (k.size() != v.size()) {
 			return;
 		}
 
-		for(int i = 0; i < k.size(); i++)
-		{
+		for (int i = 0; i < k.size(); i++) {
 			put(k, v);
 		}
 	}
@@ -247,19 +209,15 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return the sorted keys
 	 */
-	public GList<K> sortK()
-	{
-		GList<K> k = new GList<K>();
+	public GList<K> sortK() {
+		GList<K> k = new GList<>();
 		GList<V> v = v();
 
 		v.sort();
 
-		for(V i : v)
-		{
-			for(K j : k())
-			{
-				if(get(j).equals(i))
-				{
+		for (V i : v) {
+			for (K j : k()) {
+				if (get(j).equals(i)) {
 					k.add(j);
 				}
 			}
@@ -273,19 +231,15 @@ public class GMap<K, V> extends ConcurrentHashMap<K, V>
 	 *
 	 * @return the sorted values
 	 */
-	public GList<V> sortV()
-	{
-		GList<V> v = new GList<V>();
+	public GList<V> sortV() {
+		GList<V> v = new GList<>();
 		GList<K> k = k();
 
 		k.sort();
 
-		for(K i : k)
-		{
-			for(V j : v())
-			{
-				if(get(i).equals(j))
-				{
+		for (K i : k) {
+			for (V j : v()) {
+				if (get(i).equals(j)) {
 					v.add(j);
 				}
 			}

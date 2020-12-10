@@ -1,6 +1,5 @@
 package com.volmit.volume.lang.collections;
 
-
 import java.io.Serializable;
 
 /**
@@ -8,27 +7,23 @@ import java.io.Serializable;
  *
  * @author cyberpwn
  *
- * @param <A>
- *            the first object type
- * @param <B>
- *            the second object type
+ * @param <A> the first object type
+ * @param <B> the second object type
  */
-public class GBiset<A, B> implements Serializable
-{
+public class GBiset<A, B> implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	private A a;
 	private B b;
 
 	/**
 	 * Create a new Biset
 	 *
-	 * @param a
-	 *            the first object
-	 * @param b
-	 *            the second object
+	 * @param a the first object
+	 * @param b the second object
 	 */
-	public GBiset(A a, B b)
-	{
+	public GBiset(A a, B b) {
 		this.a = a;
 		this.b = b;
 	}
@@ -38,19 +33,16 @@ public class GBiset<A, B> implements Serializable
 	 *
 	 * @return the first object
 	 */
-	public A getA()
-	{
+	public A getA() {
 		return a;
 	}
 
 	/**
 	 * Set the first object
 	 *
-	 * @param a
-	 *            the first object A
+	 * @param a the first object A
 	 */
-	public void setA(A a)
-	{
+	public void setA(A a) {
 		this.a = a;
 	}
 
@@ -59,8 +51,7 @@ public class GBiset<A, B> implements Serializable
 	 *
 	 * @return the second object
 	 */
-	public B getB()
-	{
+	public B getB() {
 		return b;
 	}
 
@@ -69,8 +60,7 @@ public class GBiset<A, B> implements Serializable
 	 *
 	 * @param b
 	 */
-	public void setB(B b)
-	{
+	public void setB(B b) {
 		this.b = b;
 	}
 }
